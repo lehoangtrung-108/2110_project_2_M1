@@ -1,0 +1,93 @@
+MILESTONE 1 TEST RESULTS
+Record actual results after running the commands on the target CELL machine.
+The entries below are the M1 test plan and expected behavior; the sample-data
+checks marked PASS were run against the included implementation locally.
+CELL verification must be completed by the team before submission.
+
+Test 1
+Description: Valid records, blank lines, comment lines, too few/too many fields.
+Input: Instructor-format data files; add blank/comment/malformed lines in a
+separate temporary test directory.
+Expected: Blank/comment lines ignored; malformed records warn with filename,
+line number, and reason; processing continues.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 2
+Description: Missing input file.
+Input: Run ./campus with one required file absent from the selected data folder.
+Expected: Error names missing file; it is treated as empty; remaining files
+are processed and the program reaches the menu.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 3
+Description: Duplicate building names and duplicate facility IDs differing
+only by capitalization.
+Input: Duplicate entries in a separate test data directory.
+Expected: Later duplicate is rejected; first accepted record remains.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 4
+Description: Unknown building references, duplicate/reversed connections,
+and unknown department parents.
+Input: Invalid references in a separate test data directory.
+Expected: Invalid records rejected with filename, line number, and reason.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 5
+Description: Facility ID search: successful, lowercase, invalid-format,
+and valid-but-not-found.
+Input: Menu option 2; F004, f004, 004, F999.
+Expected: F004 and f004 find Computer Lab A; 004 reports invalid format;
+F999 reports not found with normalized ID.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 6
+Description: Hash collision diagnostic and duplicate-key insertion.
+Input: ./campus testdata/collision
+Expected: Capacity 11; two accepted facility records; at least one collision;
+duplicate f001 rejected and does not increase entries or collision count.
+Actual: Ran ./campus testdata/collision. Output:
+facilities.txt: 2 accepted, 1 rejected (hash capacity 11, entries 2,
+collisions 1). Warning: facilities.txt:4: duplicate facility ID: F001.
+F001 and F013 both hash to bucket 3. The duplicate did not change the
+collision count.
+Result: PASS (local build; repeat on CELL)
+
+Test 7
+Description: BFS from a connected building, an isolated building, unknown
+start, and a graph with multiple connected components.
+Input: Menu option 5; Library, Observatory, Unknown Building.
+Expected: Library reaches six buildings with BFS distances; Observatory
+reaches only itself; unknown start displays an error and returns to menu.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 8
+Description: Empty tree; adding root without parent prompt; root-only tree;
+search root, non-root, missing department; unknown parent; duplicate; preorder.
+Input: Menu options 6, 7, 8, and 9; use sample tree and a separate empty-tree
+dataset.
+Expected: Root can be added without parent prompt; valid child is inserted;
+unknown parent and duplicate are rejected; searches show name, parent,
+direct-child count, and depth; preorder preserves insertion order.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+Test 9
+Description: Invalid menu input, text at numeric prompts, names with spaces,
+blank names, and repeated operations after errors.
+Input: Menu entries blank, letters, out-of-range number; add/search names
+containing spaces and blank names.
+Expected: Error is displayed; input stream recovers; program returns to menu
+without crashing or looping forever.
+Actual: [Run and record exact output.]
+Result: NOT RUN
+
+M1 NOTE
+Do not mark NOT RUN tests as PASS without executing them. Add exact actual
+outputs and update PASS/FAIL after local and CELL testing.

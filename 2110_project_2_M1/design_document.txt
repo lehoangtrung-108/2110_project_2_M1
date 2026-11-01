@@ -1,0 +1,63 @@
+MILESTONE 1 DESIGN DOCUMENT
+Smart Campus Navigation and Facility Analytics System
+
+1. CUSTOM FACILITY-ID HASH TABLE
+The project uses a custom hash table with separate chaining. The table capacity
+is initially 11 buckets, set by the HashTable constructor call in main.cpp.
+Facility IDs are trimmed by the file loader and normalized to uppercase
+before validation, insertion, and lookup. A valid ID is F followed by exactly
+three digits.
+
+Hash function: polynomial rolling hash. Starting with h = 0, process each
+character c in the normalized ID from left to right:
+    h = (31 * h + ASCII(c)) mod C
+where C is the table capacity. The resulting h is the bucket index from
+0 through C-1. This uses the characters and capacity and does not use
+std::hash.
+
+Collision strategy: separate chaining. Each bucket stores a list of Facility
+records. If an accepted, nonduplicate insertion targets a bucket that already
+contains at least one record, the collision counter increases by one. This
+counts one collision per accepted insertion into a nonempty bucket. A
+duplicate ID is rejected before changing the collision counter. Chaining
+allows buckets to grow, so there is no fixed maximum number of facilities.
+The HASH-7 diagnostic prints capacity, accepted entries, and collisions
+alongside the facilities load summary.
+
+2. CAMPUS GRAPH
+CampusGraph uses an adjacency list. Each vertex stores its building name and
+a dynamically sized vector of neighboring vertex indexes. Connections are
+undirected: adding A|B adds each endpoint to the other's neighbor list and
+increments the edge count once. Duplicate and reversed connections are
+rejected. Vertex order follows buildings.txt; neighbor order follows accepted
+connection-file order. BFS uses std::queue and a visited vector. A vertex is
+marked visited when it is enqueued, and distance is the number of edges from
+the start.
+
+3. DEPARTMENT TREE
+DepartmentTree is a general tree. Each node contains its department name,
+a pointer to its parent, and a vector of owning child pointers
+(std::unique_ptr). The first valid department becomes the root; subsequent
+records attach to a parent that has already been loaded. M1 operations include
+adding a department, case-insensitive search, hierarchy display, and preorder
+traversal. Siblings retain insertion order.
+
+4. MAIN CLASSES AND MODULES
+- Facility: stores ID, facility name, building, and category.
+- HashTable: custom ID hash, separate chaining, insertion, duplicate checking,
+  and lookup.
+- CampusGraph: building vertices, undirected edges, display, degree counts,
+  and BFS reachability.
+- DepartmentTree: general-tree insertion, search, indented hierarchy, and
+  preorder traversal.
+- DataLoader: reads all four files in the required order, trims fields,
+  validates records, reports rejected line numbers, and prints load summaries.
+- main.cpp: chooses the data directory, initializes modules, coordinates
+  loading, presents the required M1 menu, and handles user input.
+
+5. FILE AND ERROR HANDLING
+Input is read one complete line at a time. Blank and comment lines are ignored.
+Fields are separated by vertical bars and trimmed at their outer whitespace.
+Malformed, duplicate, and invalid-reference records are rejected with a
+filename, line number, and reason. A missing file produces an error and is
+treated as empty so the remaining files can still be processed.

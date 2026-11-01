@@ -1,0 +1,29 @@
+CONTRIBUTIONS — MILESTONE 1
+
+IMPORTANT: Replace the placeholders below with the actual names of all three
+team members and verify that the statements accurately describe the work
+each person completed. Do not claim work or commits that a member did not do.
+
+Member A: [Full name]
+Modules owned: Facility record, custom ID hash table, facility loading,
+facility listing, and facility ID search.
+Work completed: [Describe actual work and meaningful commits.]
+
+Member B: [Full name]
+Modules owned: Campus graph, graph display/statistics, and BFS reachability.
+Work completed: [Describe actual work and meaningful commits.]
+
+Member C: [Full name]
+Modules owned: Department tree, department loading, insertion, search,
+hierarchy display, and preorder traversal.
+Work completed: [Describe actual work and meaningful commits.]
+
+SHARED WORK
+All members: requirements review, integration, main menu/file-loading
+coordination, testing, README/design documentation, and preparation for the
+demonstration. Edit this section to reflect the team's actual contributions.
+
+TEAM REPOSITORY REQUIREMENT
+Add all three members as GitHub collaborators. Each member must make meaningful
+commits under their own GitHub account. The ZIP and GitHub repository must
+contain matching versions of the required M1 files.

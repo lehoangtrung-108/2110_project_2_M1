@@ -1,0 +1,4 @@
+# With capacity 11, F001 and F013 hash to bucket 3
+F001|First Facility|Library|Library
+F013|Second Facility|Student Union|Computer Lab
+f001|Duplicate ID|Library|Library

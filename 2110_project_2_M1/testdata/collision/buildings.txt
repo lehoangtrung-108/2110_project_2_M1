@@ -1,0 +1,3 @@
+# Small valid data set for collision diagnostic
+Library
+Student Union
